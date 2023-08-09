@@ -98,7 +98,7 @@ class Detection_Abstract(SecurityContentObject):
 
     @validator("tests")
     def tests_validate(cls, v, values):
-        if values.get("status","") != DetectionStatus.production and not v:
+        if values.get("status","") == DetectionStatus.production and not v:
             raise ValueError(
                 "tests value is needed for production detection: " + values["name"]
             )
@@ -124,7 +124,7 @@ class Detection_Abstract(SecurityContentObject):
         return v
     
     def all_tests_successful(self) -> bool:
-        if len(self.tests) == 0:
+        if len(self.tests) == 0 and self.status is DetectionStatus.production:
             return False
         for test in self.tests:
             if test.result is None or test.result.success == False:
