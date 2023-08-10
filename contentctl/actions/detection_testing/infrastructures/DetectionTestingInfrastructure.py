@@ -402,7 +402,7 @@ class DetectionTestingInfrastructure(BaseModel, abc.ABC):
         # in a non-interactive context
 
         try:
-            self.replay_attack_data_files(test.attack_data, test, start_time)
+            self.replay_attack_data_files(test.attack_data, test, start_time, detection)
         except Exception as e:
 
             test.result = UnitTestResult()
@@ -583,11 +583,12 @@ class DetectionTestingInfrastructure(BaseModel, abc.ABC):
         attack_data_files: list[UnitTestAttackData],
         test: UnitTestTest,
         start_time: float,
+        detection: Detection,
     ):
         with TemporaryDirectory(prefix="contentctl_attack_data") as attack_data_dir:
             for attack_data_file in attack_data_files:
                 self.replay_attack_data_file(
-                    attack_data_file, attack_data_dir, test, start_time
+                    attack_data_file, attack_data_dir, test, start_time, detection
                 )
 
     def replay_attack_data_file(
@@ -596,6 +597,7 @@ class DetectionTestingInfrastructure(BaseModel, abc.ABC):
         tmp_dir: str,
         test: UnitTestTest,
         start_time: float,
+        detection: Detection,
     ):
         tempfile = mktemp(dir=tmp_dir)
 
@@ -610,13 +612,13 @@ class DetectionTestingInfrastructure(BaseModel, abc.ABC):
                 except Exception as e:
                     raise (
                         Exception(
-                            f"Error copying local Attack Data File for [{Detection.name}] - [{attack_data_file.data}]: {str(e)}"
+                            f"Error copying local Attack Data File for [{detection.name}:{test.name}] - [{attack_data_file.data}]: {str(e)}"
                         )
                     )
             else:
                 raise (
                     Exception(
-                        f"Attack Data File for [{Detection.name}] is local [{attack_data_file.data}], but does not exist."
+                        f"Attack Data File for [{detection.name}:{test.name}] is local [{attack_data_file.data}], but does not exist."
                     )
                 )
 
