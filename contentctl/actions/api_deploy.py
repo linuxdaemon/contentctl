@@ -45,7 +45,7 @@ class API_Deploy:
                 "host": target.server,
                 "port": target.port,
                 "owner": "nobody",
-                "app": "search",
+                "app": "SplunkEnterpriseSecuritySuite",
             }
             print("Warning - we are currently deploying all content into the 'search' app. "
                   "At this time, this means the user does not have to install the app "
