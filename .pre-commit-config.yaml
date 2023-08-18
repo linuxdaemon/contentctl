@@ -1,0 +1,73 @@
+default_language_version:
+  python: '3.9'
+repos:
+# -   repo: https://github.com/PyCQA/autoflake
+#     rev: a8074406bf785cb287dfe1809e79ac6856bf65b2  # frozen: v2.0.1
+#     hooks:
+#     -   id: autoflake
+#         args:
+#           - --remove-all-unused-imports
+#           - --in-place
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: f71fa2c1f9cf5cb705f73dffe4b21f7c61470ba9  # frozen: v4.4.0
+  hooks:
+  - id: trailing-whitespace
+    args: ['--markdown-linebreak-ext=md,markdown']
+  - id: end-of-file-fixer
+#  - id: check-yaml
+#  - id: check-added-large-files
+#  - id: check-ast
+#  - id: check-byte-order-marker
+  - id: check-merge-conflict
+#  - id: debug-statements
+  - id: check-builtin-literals
+  - id: check-case-conflict
+  - id: check-docstring-first
+  - id: check-executables-have-shebangs
+#  - id: check-json
+#  - id: pretty-format-json
+#    args:
+#    - '--indent'
+#    - '4'
+#    - '--autofix'
+#    - '--no-sort-keys'
+#  - id: check-toml
+  - id: fix-encoding-pragma
+    args:
+    - '--remove'
+# - repo: https://github.com/psf/black
+#   rev: b0d1fba7ac3be53c71fb0d3211d911e629f8aecb  # frozen: 23.1.0
+#   hooks:
+#   - id: black
+# - repo: https://github.com/timothycrosley/isort
+#   rev: e44834b7b294701f596c9118d6c370f86671a50d  # frozen: 5.11.5
+#   hooks:
+#   - id: isort
+- repo: https://github.com/pre-commit/pygrep-hooks
+  rev: 3a6eb0fadf60b3cccfd80bad9dbb6fae7e47b316  # frozen: v1.10.0
+  hooks:
+  - id: python-no-eval
+  - id: python-no-log-warn
+#- repo: https://github.com/jumanjihouse/pre-commit-hook-yamlfmt
+#  rev: a27ba454fd1cfd7ce20b60f5a1aee310fd66df82    # frozen: 0.1.0
+#  hooks:
+#  - id: yamlfmt
+#    args:
+#    - --mapping
+#    - '2'
+#    - --sequence
+#    - '2'
+#    - --offset
+#    - '0'
+#    - --preserve-quotes
+#    - --width
+#    - '80'
+#    - -e
+- repo: local
+  hooks:
+  - id: darker
+    name: darker
+    entry: "darker -r :PRE-COMMIT:"
+    language: system
+    types: [python]
+    require_serial: true

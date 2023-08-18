@@ -31,7 +31,55 @@ splunk-packaging-toolkit = "^1.0.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "*"
+darker = "*"
+pre-commit = "*"
+black = "*"
+flake8 = "*"
+mypy = "*"
+isort = "*"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.darker]
+src = [
+    "contentctl",
+]
+isort = false
+black = false
+lint = [
+    "mypy",
+    "flake8",
+]
+log_level = "INFO"
+
+[tool.isort]
+line_length=88
+multi_line_output=3
+include_trailing_comma=true
+use_parentheses=true
+known_first_party=["contentctl"]
+
+[tool.black]
+skip-string-normalization=true
+line-length = 120
+target-version = ['py39']
+include = '\.pyi?$'
+exclude = '''
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+    | venv
+  )/
+)
+'''
