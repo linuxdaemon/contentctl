@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from contentctl.objects.config import Config, ConfigDrilldown
 from contentctl.objects.detection_suppression import DetectionSuppression
+from contentctl.objects.config import Config
 
 from contentctl.objects.enums import SecurityContentType
 from contentctl.input.new_content_questions import NewContentQuestions
