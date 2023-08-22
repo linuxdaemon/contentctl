@@ -3,6 +3,7 @@ import uuid
 import questionary
 from dataclasses import dataclass
 from datetime import datetime
+from contentctl.objects.config import ConfigDrilldown
 
 from contentctl.objects.enums import SecurityContentType
 from contentctl.input.new_content_questions import NewContentQuestions
@@ -63,6 +64,11 @@ class NewContentGenerator():
             #self.output_dto.obj['source'] = answers['detection_kind']
             self.output_dto.obj['tags']['severity'] = answers['severity']
         
+            if answers['use_drilldown']:
+                self.output_dto.obj['drilldown'] = ConfigDrilldown(
+                    name=answers['drilldown_name'],
+                    search=answers['drilldown_search'],
+                ).dict()
 
         elif input_dto.type == SecurityContentType.stories:
             questions = NewContentQuestions.get_questions_story()
