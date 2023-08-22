@@ -75,6 +75,8 @@ class NewContentGenerator():
                     search=answers['drilldown_search'],
                 ).dict()
 
+            self.output_dto.obj['tags']['next_steps'] = answers['next_steps']
+
             if input_dto.config.custom_deployment:
                 self.output_dto.obj['deployment'] = input_dto.config.detection_configuration.dict(exclude_unset=True)
 

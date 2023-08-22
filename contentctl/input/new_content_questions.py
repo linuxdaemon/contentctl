@@ -120,6 +120,12 @@ class NewContentQuestions():
                 'choices': [item.value for item in NotableSeverity],
                 'default': NotableSeverity.Medium.value,
             },
+            {
+                'type': 'text',
+                'message': 'Next steps',
+                'name': 'next_steps',
+                'multiline': True,
+            },
         ]
         return questions
 
