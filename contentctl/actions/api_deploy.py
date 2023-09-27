@@ -85,6 +85,7 @@ class API_Deploy:
                     tqdm.tqdm.write(f"Deployed macro [{section}]")
                 except Exception as e:
                     tqdm.tqdm.write(f"Error deploying macro {section}: {str(e)}")
+                    sys.exit(1)
 
             detection_parser = RawConfigParser()
             detection_parser = self.fix_newlines_in_conf_files(
@@ -130,6 +131,7 @@ class API_Deploy:
                 
                 except Exception as e:
                     tqdm.tqdm.write(f"Error deploying saved search {section}: {str(e)}")
+                    sys.exit(1)
 
         # story_parser = RawConfigParser()
         # story_parser.read(os.path.join(input_dto.path, input_dto.config.build.splunk_app.path, "default", "analyticstories.conf"))
