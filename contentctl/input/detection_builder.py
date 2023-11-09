@@ -8,6 +8,7 @@ from pydantic import ValidationError
 from contentctl.input.yml_reader import YmlReader
 from contentctl.objects.detection import Detection
 from contentctl.objects.detection_tags import DetectionTags
+from contentctl.objects.enums import DetectionStatus
 from contentctl.objects.security_content_object import SecurityContentObject
 from contentctl.objects.macro import Macro
 from contentctl.objects.mitre_attack_enrichment import MitreAttackEnrichment
@@ -25,6 +26,9 @@ class DetectionBuilder():
         yml_dict["tags"]["name"] = yml_dict["name"]
         self.security_content_obj = Detection.parse_obj(yml_dict)
         self.security_content_obj.source = os.path.split(os.path.dirname(self.security_content_obj.file_path))[-1]      
+
+    def setDisabled(self):
+        self.security_content_obj.disabled = self.security_content_obj.status is not DetectionStatus.production
 
     def addNextSteps(self):
         if self.security_content_obj:

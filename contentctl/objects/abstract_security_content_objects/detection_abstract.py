@@ -60,6 +60,7 @@ class Detection_Abstract(SecurityContentObject):
     providing_technologies: list = None
     runtime: str = None
     drilldown: ConfigDrilldown = None
+    disabled: bool = False
 
     class Config:
         use_enum_values = True
