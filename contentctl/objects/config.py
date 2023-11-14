@@ -27,6 +27,36 @@ class ConfigDrilldown(BaseModel):
     earliest_offset: str = "$info_min_time$"
     latest_offset: str = "$info_max_time$"
 
+    @validator("earliest_offset")
+    def check_min_time(cls, v, field):
+        default_value = '$info_min_time$'
+        if v is None:
+            v = default_value
+        
+        if v == default_value:
+            return v
+        
+        n = int(v)
+        if n < 0:
+            raise ValueError(f"Invalid value for {field}, expected positive integer or '{default_value}'")
+        
+        return n
+    
+    @validator("latest_offset")
+    def check_max_time(cls, v, field):
+        default_value = '$info_max_time$'
+        if v is None:
+            v = default_value
+        
+        if v == default_value:
+            return v
+        
+        n = int(v)
+        if n < 0:
+            raise ValueError(f"Invalid value for {field}, expected positive integer or '{default_value}'")
+        
+        return n
+
 
 class ConfigNotable(BaseModel):
     rule_description: str
