@@ -3,14 +3,14 @@ from contentctl.input.detection_builder import DetectionBuilder
 from contentctl.objects.config import ConfigDetectionConfiguration, ConfigNotable
 from contentctl.objects.detection import Detection
 from contentctl.objects.detection_tags import DetectionTags
-from contentctl.objects.enums import AnalyticsType
+from contentctl.objects.enums import AnalyticsType, DetectionStatus
 
 
 def test_add_deployment():
     detection = Detection(
         name="test detection",
         type=AnalyticsType.correlation.name,
-        status="experimental",
+        status=DetectionStatus.experimental,
         data_source=[],
         search="",
         how_to_implement="",
@@ -49,6 +49,7 @@ def test_add_deployment():
     builder.addDeployment(default_config)
 
     assert detection.deployment.notable.rule_title == 'specific title'
+    assert detection.status == DetectionStatus.experimental.value
 
 def test_add_nes_fields():
     detection = Detection(

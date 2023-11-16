@@ -28,7 +28,7 @@ class DetectionBuilder():
         self.security_content_obj.source = os.path.split(os.path.dirname(self.security_content_obj.file_path))[-1]      
 
     def setDisabled(self):
-        self.security_content_obj.disabled = self.security_content_obj.status is not DetectionStatus.production
+        self.security_content_obj.disabled = self.security_content_obj.status != DetectionStatus.production.value
 
     def addNextSteps(self):
         if self.security_content_obj:
