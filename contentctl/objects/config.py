@@ -7,6 +7,8 @@ from contentctl.objects.test_config import TestConfig
 
 import string
 import random
+from croniter import croniter
+
 PASSWORD = ''.join([random.choice(string.ascii_letters + string.digits) for i in range(16)])
 
 class ConfigGlobal(BaseModel):
@@ -19,6 +21,13 @@ class ConfigScheduling(BaseModel):
     earliest_time: str
     latest_time: str
     schedule_window: str
+
+    @validator('cron_schedule')
+    def check_cron(cls, v):
+        if not croniter.is_valid(v):
+            raise ValueError(f"Invalid cron schedule: {v}")
+
+        return v
 
 
 class ConfigDrilldown(BaseModel):

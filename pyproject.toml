@@ -28,6 +28,7 @@ bottle = "^0.12.23"
 tqdm = "^4.65.0"
 #splunk-appinspect = "^2.36.0"
 splunk-packaging-toolkit = "^1.0.1"
+croniter = "^2.0.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "*"
