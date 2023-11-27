@@ -102,8 +102,10 @@ action.sendtophantom.param.severity = {{ detection.deployment.phantom.severity |
 alert.digest_mode = 1
 {% if detection.disabled is defined and detection.disabled %}
 disabled = true
+is_scheduled = false
 {% else %}
 disabled = false
+is_scheduled = true
 {% endif %}
 enableSched = 1
 allow_skew = 100%
