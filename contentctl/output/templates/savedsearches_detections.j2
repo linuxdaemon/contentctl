@@ -26,6 +26,7 @@ action.{{APP_NAME|lower}}.known_false_positives = None
 action.{{APP_NAME|lower}}.creation_date = {{ detection.date }}
 action.{{APP_NAME|lower}}.modification_date = {{ detection.date }}
 action.{{APP_NAME|lower}}.confidence = high
+action.{{APP_NAME|lower}}.uuid = {{ detection.id }}
 action.{{APP_NAME|lower}}.full_search_name = {{APP_NAME}} - {{ detection.name }} - Rule
 action.{{APP_NAME|lower}}.search_type = detection
 {% if detection.tags.product is defined %}
