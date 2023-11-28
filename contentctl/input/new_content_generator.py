@@ -36,7 +36,7 @@ class NewContentGenerator():
             self.output_dto.obj['name'] = answers['detection_name']
             self.output_dto.obj['id'] = str(uuid.uuid4())
             self.output_dto.obj['version'] = 1
-            self.output_dto.obj['status'] = DetectionStatus.experimental.value
+            self.output_dto.obj['status'] = DetectionStatus(answers['detection_status']).value
             self.output_dto.obj['date'] = datetime.today().strftime('%Y-%m-%d')
             self.output_dto.obj['author'] = answers['detection_author']
             self.output_dto.obj['type'] = answers['detection_type']

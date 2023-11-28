@@ -1,6 +1,6 @@
 
 
-from contentctl.objects.enums import NotableSeverity
+from contentctl.objects.enums import DetectionStatus, NotableSeverity
 
 
 class NewContentQuestions():
@@ -32,6 +32,16 @@ class NewContentQuestions():
                     'Correlation'
                 ],
                 'default': 'TTP'
+            },
+            {
+                'type': 'select',
+                'message': 'Select a lifecycle status',
+                'name': 'detection_status',
+                'choices': [
+                    status.name
+                    for status in DetectionStatus
+                ],
+                'default': DetectionStatus.experimental.name
             },
             {
                 'type': 'checkbox',
