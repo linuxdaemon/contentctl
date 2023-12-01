@@ -3,13 +3,14 @@
 import pathlib
 
 
-from pydantic import BaseModel, root_validator, validator, ValidationError, Extra, Field
+from pydantic import root_validator, validator, ValidationError, Extra, Field
 from pydantic.main import ModelMetaclass
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Union
 
 import validators
+from contentctl.objects.content_base import ContentBase
 
 from contentctl.objects.enums import SecurityContentProduct
 
@@ -22,7 +23,7 @@ ALWAYS_PULL = True
 
 SPLUNKBASE_URL = "https://splunkbase.splunk.com/app/{uid}/release/{release}/download"
 
-class Manifest(BaseModel):
+class Manifest(ContentBase):
     #Note that many of these fields are mirrored from App
 
     #Some information about the developer of the app 
@@ -64,7 +65,7 @@ class Manifest(BaseModel):
         return v
 
 
-class RepoConfig(BaseModel):
+class RepoConfig(ContentBase):
 
     #Needs a manifest to be able to properly generate the app
     manifest:Manifest = Field(default=None, title="Manifest Object")

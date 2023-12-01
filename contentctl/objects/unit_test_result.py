@@ -4,6 +4,7 @@ from pydantic import BaseModel, root_validator, validator
 from typing import Union
 from datetime import timedelta
 from splunklib.data import Record
+from contentctl.objects.content_base import ContentBase
 from contentctl.objects.test_config import TestConfig
 from contentctl.helper.utils import Utils
 
@@ -12,7 +13,7 @@ FORCE_TEST_FAILURE_FOR_MISSING_OBSERVABLE = False
 SID_TEMPLATE = "{server}:{web_port}/en-US/app/search/search?sid={sid}"
 
 
-class UnitTestResult(BaseModel):
+class UnitTestResult(ContentBase):
     job_content: Union[Record, None] = None
     missing_observables: list[str] = []
     sid_link: Union[None, str] = None
@@ -20,9 +21,6 @@ class UnitTestResult(BaseModel):
     exception: bool = False
     success: bool = False
     duration: float = 0
-
-    class Config:
-        validate_assignment = True
 
     def get_summary_dict(
         self,

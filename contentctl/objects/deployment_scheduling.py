@@ -1,9 +1,7 @@
+from contentctl.objects.content_base import ContentBase
 
 
-from pydantic import BaseModel, validator, ValidationError
-
-
-class DeploymentScheduling(BaseModel):
+class DeploymentScheduling(ContentBase):
     cron_schedule: str
     earliest_time: str
     latest_time: str

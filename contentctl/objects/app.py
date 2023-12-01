@@ -11,6 +11,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Union
 import validators
+from contentctl.objects.content_base import ContentBase
 from contentctl.objects.security_content_object import SecurityContentObject
 from contentctl.objects.enums import DataModel
 from contentctl.helper.utils import Utils
@@ -19,7 +20,7 @@ import yaml
 SPLUNKBASE_URL = "https://splunkbase.splunk.com/app/{uid}/release/{release}/download"
 ENVIRONMENT_PATH_NOT_SET = "ENVIRONMENT_PATH_NOT_SET"
 
-class App(BaseModel, extra=Extra.forbid):
+class App(ContentBase):
 
     # uid is a numeric identifier assigned by splunkbase, so
     # homemade applications will not have this

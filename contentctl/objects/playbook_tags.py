@@ -1,8 +1,10 @@
 
-from pydantic import BaseModel, validator, ValidationError
+from pydantic import Extra, validator, ValidationError
+
+from contentctl.objects.content_base import ContentBase
 
 
-class PlaybookTag(BaseModel):
+class PlaybookTag(ContentBase):
     analytic_story: list = None
     detections: list = None
     platform_tags: list = None

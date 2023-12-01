@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 import abc
 from typing import Callable
+from contentctl.objects.content_base import ContentBase
 from contentctl.objects.test_config import TestConfig
 import datetime
 from contentctl.actions.detection_testing.infrastructures.DetectionTestingInfrastructure import (
@@ -9,7 +10,7 @@ from contentctl.actions.detection_testing.infrastructures.DetectionTestingInfras
 from contentctl.helper.utils import Utils
 
 
-class DetectionTestingView(BaseModel, abc.ABC):
+class DetectionTestingView(ContentBase, abc.ABC):
     config: TestConfig
     sync_obj: DetectionTestingManagerOutputDto
 

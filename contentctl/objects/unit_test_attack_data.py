@@ -2,8 +2,10 @@ from pydantic import BaseModel, validator, ValidationError
 from contentctl.helper.utils import Utils
 from typing import Union
 
+from contentctl.objects.content_base import ContentBase
 
-class UnitTestAttackData(BaseModel):
+
+class UnitTestAttackData(ContentBase):
     data: str = None
     source: str = None
     sourcetype: str = None

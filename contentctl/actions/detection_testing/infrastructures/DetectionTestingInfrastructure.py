@@ -3,6 +3,7 @@ from dataclasses import dataclass
 import abc
 import requests
 import splunklib.client as client
+from contentctl.objects.content_base import ContentBase
 from contentctl.objects.enums import PostTestBehavior
 from contentctl.objects.detection import Detection
 from contentctl.objects.unit_test_test import UnitTestTest
@@ -62,7 +63,7 @@ class DetectionTestingManagerOutputDto:
     terminate: bool = False
 
 
-class DetectionTestingInfrastructure(BaseModel, abc.ABC):
+class DetectionTestingInfrastructure(ContentBase, abc.ABC):
     # thread: threading.Thread = threading.Thread()
     config: TestConfig
     sync_obj: DetectionTestingManagerOutputDto

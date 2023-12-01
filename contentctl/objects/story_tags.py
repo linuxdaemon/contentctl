@@ -1,10 +1,11 @@
 
 
 from pydantic import BaseModel, validator, ValidationError
+from contentctl.objects.content_base import ContentBase
 from contentctl.objects.mitre_attack_enrichment import MitreAttackEnrichment
 from contentctl.objects.enums import StoryCategory
 
-class StoryTags(BaseModel):
+class StoryTags(ContentBase):
     # story spec
     name: str
     analytic_story: str

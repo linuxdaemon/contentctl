@@ -1,8 +1,10 @@
 
-from pydantic import BaseModel, validator, ValidationError
+from pydantic import Extra, validator, ValidationError
+
+from contentctl.objects.content_base import ContentBase
 
 
-class DeploymentPhantom(BaseModel):
+class DeploymentPhantom(ContentBase):
     cam_workers : str
     label : str
     phantom_server : str

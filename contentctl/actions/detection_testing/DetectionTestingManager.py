@@ -1,3 +1,4 @@
+from contentctl.objects.content_base import ContentBase
 from contentctl.objects.test_config import TestConfig
 from contentctl.actions.detection_testing.infrastructures.DetectionTestingInfrastructure import (
     DetectionTestingInfrastructure,
@@ -55,7 +56,7 @@ class DetectionTestingManagerInputDto:
     views: list[DetectionTestingView]
 
 
-class DetectionTestingManager(BaseModel):
+class DetectionTestingManager(ContentBase):
     input_dto: DetectionTestingManagerInputDto
     output_dto: DetectionTestingManagerOutputDto
     detectionTestingInfrastructureObjects: list[DetectionTestingInfrastructure] = []

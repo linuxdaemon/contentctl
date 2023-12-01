@@ -11,9 +11,11 @@ import abc
 import os
 import shelve
 
+from contentctl.objects.content_base import ContentBase
+
 DEFAULT_USER_AGENT_STRING = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.41 Safari/537.36"
 ALLOWED_HTTP_CODES = [200]
-class LinkStats(BaseModel):
+class LinkStats(ContentBase):
     #Static Values
     method: Callable = requests.get
     allowed_http_codes: list[int] = ALLOWED_HTTP_CODES 

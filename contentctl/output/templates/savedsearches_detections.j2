@@ -117,7 +117,7 @@ realtime_schedule = 0
 is_visible = false
 {% if detection.throttling.enabled %}
 alert.suppress = true
-alert.suppress.fields = {{ detection.throttling.fields }}
+alert.suppress.fields = {{ detection.throttling.fields | join(',') }}
 alert.suppress.period = {{ detection.throttling.window }}
 {% endif %}
 search = {{ detection.search }}

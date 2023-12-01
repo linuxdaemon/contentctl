@@ -1,9 +1,11 @@
 
-from pydantic import BaseModel, validator, ValidationError
+from pydantic import Extra, validator, ValidationError
+
+from contentctl.objects.content_base import ContentBase
 
 
 
-class BaselineTags(BaseModel):
+class BaselineTags(ContentBase):
     analytic_story: list
     deployments: list = None
     detections: list

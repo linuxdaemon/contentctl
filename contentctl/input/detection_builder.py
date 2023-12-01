@@ -103,8 +103,7 @@ class DetectionBuilder():
                 self.security_content_obj.providing_technologies = ["Microsoft Windows"]
 
     def addThrottleFields(self) -> None:
-        if self.security_content_obj and self.security_content_obj.throttling:
-            self.security_content_obj.throttling.fields = ",".join(list(self.security_content_obj.throttling.fields))
+        return
     
     def addNesFields(self) -> None:
         if self.security_content_obj:

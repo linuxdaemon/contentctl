@@ -1,8 +1,9 @@
 import os
-from pydantic import BaseModel, validator, root_validator, ValidationError, Field, Extra
+from pydantic import validator, root_validator, ValidationError, Field, Extra
 import semantic_version
 from datetime import datetime
 from typing import Union
+from contentctl.objects.content_base import ContentBase
 from contentctl.objects.test_config import TestConfig
 
 import string
@@ -11,16 +12,18 @@ from croniter import croniter
 
 PASSWORD = ''.join([random.choice(string.ascii_letters + string.digits) for i in range(16)])
 
-class ConfigGlobal(BaseModel):
+class ConfigGlobal(ContentBase):
     log_path: str
     log_level: str
 
 
-class ConfigScheduling(BaseModel):
+
+class ConfigScheduling(ContentBase):
     cron_schedule: str
     earliest_time: str
     latest_time: str
     schedule_window: str
+
 
     @validator('cron_schedule')
     def check_cron(cls, v):
@@ -30,7 +33,7 @@ class ConfigScheduling(BaseModel):
         return v
 
 
-class ConfigDrilldown(BaseModel):
+class ConfigDrilldown(ContentBase):
     name: str
     search: str
     earliest_offset: str = "$info_min_time$"
@@ -67,24 +70,27 @@ class ConfigDrilldown(BaseModel):
         return n
 
 
-class ConfigNotable(BaseModel):
+class ConfigNotable(ContentBase):
     rule_description: str
     rule_title: str
     nes_fields: list
 
 
-class ConfigEmail(BaseModel):
+
+class ConfigEmail(ContentBase):
     subject: str
     to: str
     message: str
 
 
-class ConfigSlack(BaseModel):
+
+class ConfigSlack(ContentBase):
     channel: str
     message: str
 
 
-class ConfigPhantom(BaseModel):
+
+class ConfigPhantom(ContentBase):
     cam_workers: str
     label: str
     phantom_server: str
@@ -92,11 +98,13 @@ class ConfigPhantom(BaseModel):
     severity: str
 
 
-class ConfigRba(BaseModel):
+
+class ConfigRba(ContentBase):
     enabled: str
 
 
-class ConfigDetectionConfiguration(BaseModel):
+
+class ConfigDetectionConfiguration(ContentBase):
     scheduling: ConfigScheduling = ConfigScheduling(cron_schedule="0 * * * *", earliest_time="-70m@m", latest_time="-10m@m", schedule_window="auto")
     notable: ConfigNotable = ConfigNotable(rule_description="%description%", rule_title="%name%", nes_fields=["user", "dest", "src"])
     email: Union[ConfigEmail,None] = None
@@ -105,13 +113,13 @@ class ConfigDetectionConfiguration(BaseModel):
     rba: Union[ConfigRba,None] = None
 
 
-class ConfigAlertAction(BaseModel):
+
+class ConfigAlertAction(ContentBase):
     notable: ConfigNotable
 
 
 
-
-class ConfigDeploy(BaseModel):
+class ConfigDeploy(ContentBase):
     description: str = "Description for this deployment target"
     server: str = "127.0.0.1"
 
@@ -154,23 +162,24 @@ class ConfigDeployRestAPI(ConfigDeploy):
         return values
 
 
-class Deployments(BaseModel):
+class Deployments(ContentBase):
     acs_deployments: list[ConfigDeployACS] = []
     rest_api_deployments: list[ConfigDeployRestAPI] = [ConfigDeployRestAPI()]
+    
 
 
-class ConfigBuildSplunk(BaseModel):
+class ConfigBuildSplunk(ContentBase):
     pass
     
-class ConfigBuildJson(BaseModel):
+class ConfigBuildJson(ContentBase):
     pass
 
-class ConfigBuildBa(BaseModel):
+class ConfigBuildBa(ContentBase):
     pass
 
 
 
-class ConfigBuild(BaseModel):
+class ConfigBuild(ContentBase):
     # Fields required for app.conf based on
     # https://docs.splunk.com/Documentation/Splunk/9.0.4/Admin/Appconf
     name: str = Field(default="ContentPack",title="Internal name used by your app.  No spaces or special characters.")
@@ -215,14 +224,14 @@ class ConfigBuild(BaseModel):
 
 
 
-class ConfigEnrichments(BaseModel):
+class ConfigEnrichments(ContentBase):
     attack_enrichment: bool = False
     cve_enrichment: bool = False
     splunk_app_enrichment: bool = False
 
 
 
-class Config(BaseModel, extra=Extra.forbid):
+class Config(ContentBase):
     #general: ConfigGlobal = ConfigGlobal()
     detection_configuration: ConfigDetectionConfiguration = ConfigDetectionConfiguration()
     deployments: Deployments = Deployments()

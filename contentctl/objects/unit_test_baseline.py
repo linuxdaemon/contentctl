@@ -3,7 +3,9 @@
 from pydantic import BaseModel, validator, ValidationError
 from typing import Union
 
-class UnitTestBaseline(BaseModel):
+from contentctl.objects.content_base import ContentBase
+
+class UnitTestBaseline(ContentBase):
     name: str
     file: str
     pass_condition: str

@@ -1,10 +1,8 @@
-import re
-
-from pydantic import BaseModel, validator, ValidationError, root_validator
-from contentctl.objects.mitre_attack_enrichment import MitreAttackEnrichment
+from contentctl.objects.content_base import ContentBase
 from contentctl.objects.constants import *
 
-class DetectionSuppression(BaseModel):
+
+class DetectionSuppression(ContentBase):
     enabled: bool = False
     fields: list[str] = []
-    window: str = '86400s'
+    window: str = "86400s"

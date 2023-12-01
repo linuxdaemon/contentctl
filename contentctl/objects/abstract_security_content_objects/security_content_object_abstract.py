@@ -2,11 +2,12 @@ import abc
 import string
 import uuid
 from datetime import datetime
-from pydantic import BaseModel, validator, ValidationError
+from pydantic import Extra, validator, ValidationError
+from contentctl.objects.content_base import ContentBase
 from contentctl.objects.enums import SecurityContentType
 
 
-class SecurityContentObject_Abstract(BaseModel, abc.ABC):
+class SecurityContentObject_Abstract(ContentBase, abc.ABC):
     contentType: SecurityContentType
     name: str
     author: str = "UNKNOWN_AUTHOR"

@@ -11,6 +11,7 @@ from dataclasses import dataclass
 from typing import Union
 import docker
 import docker.errors
+from contentctl.objects.content_base import ContentBase
 
 
 from contentctl.objects.enums import (
@@ -40,7 +41,7 @@ def getTestConfigFromYMLFile(path: pathlib.Path):
         print(f"Error loading test configuration file '{path}': {str(e)}")
 
 
-class TestConfig(BaseModel, extra=Extra.forbid, validate_assignment=True):
+class TestConfig(ContentBase):
     repo_path: str = Field(default=".", title="Path to the root of your app")
     repo_url: Union[str, None] = Field(
         default=None,

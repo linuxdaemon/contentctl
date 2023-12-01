@@ -1,4 +1,4 @@
-from pydantic import BaseModel, validator, ValidationError
+from contentctl.objects.content_base import ContentBase
 
 
 from contentctl.objects.unit_test_attack_data import UnitTestAttackData
@@ -7,7 +7,7 @@ from contentctl.objects.unit_test_result import UnitTestResult
 from typing import Union
 
 
-class UnitTestTest(BaseModel):
+class UnitTestTest(ContentBase):
     name: str
     file: str
     pass_condition: Union[str, None] = None
