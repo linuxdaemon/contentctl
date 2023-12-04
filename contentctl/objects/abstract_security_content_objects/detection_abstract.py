@@ -34,7 +34,7 @@ class Detection_Abstract(SecurityContentObject):
     search: Union[str, dict]
     how_to_implement: str
     known_false_positives: str
-    check_references: bool = False  
+    check_references: bool = False
     references: list
     tags: DetectionTags
     throttling: DetectionSuppression = DetectionSuppression()
@@ -71,9 +71,9 @@ class Detection_Abstract(SecurityContentObject):
             raise ValueError("not valid analytics type: " + values["name"])
         return v
 
-    @validator('how_to_implement')
+    @validator("how_to_implement")
     def encode_error(cls, v, values, field):
-        return SecurityContentObject.free_text_field_valid(cls,v,values,field)
+        return SecurityContentObject.free_text_field_valid(cls, v, values, field)
 
     # @root_validator
     # def search_validation(cls, values):
@@ -90,42 +90,55 @@ class Detection_Abstract(SecurityContentObject):
     # def references_check(cls, v, values):
     #     return LinkValidator.check_references(v, values["name"])
     #     return v
-    
 
     @validator("search")
     def search_validate(cls, v, values):
         # write search validator
         return v
 
-    @validator("tests")
+    @validator("tests", always=True)
     def tests_validate(cls, v, values):
-        if values.get("status","") == DetectionStatus.production and not v:
+        status = DetectionStatus(values.get("status", ""))
+        if status != DetectionStatus.production:
+            # Not prod, we don't care
+            return v
+
+        if values["tags"].manual_test:
+            # Testing is manual, this is fine
+            return v
+
+        if not v:
             raise ValueError(
                 "tests value is needed for production detection: " + values["name"]
             )
+
         return v
 
     @validator("experimental", always=True)
     def experimental_validate(cls, v, values):
-        if DetectionStatus(values.get("status","")) == DetectionStatus.experimental:
+        if DetectionStatus(values.get("status", "")) == DetectionStatus.experimental:
             return True
         return False
 
     @validator("deprecated", always=True)
     def deprecated_validate(cls, v, values):
-        if DetectionStatus(values.get("status","")) == DetectionStatus.deprecated:
+        if DetectionStatus(values.get("status", "")) == DetectionStatus.deprecated:
             return True
         return False
-    
+
     @validator("datamodel")
     def datamodel_valid(cls, v, values):
         for datamodel in v:
             if datamodel not in [el.name for el in DataModel]:
                 raise ValueError("not valid data model: " + values["name"])
         return v
-    
+
     def all_tests_successful(self) -> bool:
-        if len(self.tests) == 0 and self.status is DetectionStatus.production:
+        if (
+            len(self.tests) == 0
+            and self.status == DetectionStatus.production.value
+            and not self.tags.manual_test
+        ):
             return False
         for test in self.tests:
             if test.result is None or test.result.success == False:
