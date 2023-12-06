@@ -1,7 +1,11 @@
 
 
+import re
+from questionary import Validator
+import validators
 from contentctl.objects.enums import AnalyticsType, DetectionStatus, DetectionTestingMode, NotableSeverity
 
+DURATION_RE = re.compile(r'^(\d+[dhms])+$')
 
 class NewContentQuestions():
 
@@ -63,6 +67,29 @@ class NewContentQuestions():
                 'message': 'enter search (spl)',
                 'name': 'detection_search',
                 'default': '| UPDATE_SPL'
+            },
+            {
+                'type': 'confirm',
+                'message': 'Do you want to add a throttling configuration?',
+                'name': 'enable_throttling',
+                'default': True,
+            },
+            {
+                'type': 'text',
+                'message': 'enter fields to throttle by',
+                'name': 'throttling_fields',
+                'when': lambda answers: answers['enable_throttling'],
+                'instruction': 'Seperate multiple fields with a comma (,)',
+                'filter': lambda fields: fields.split(',')
+            },
+            {
+                'type': 'text',
+                'message': 'how long to throttle for',
+                'name': 'throttling_window',
+                'when': lambda answers: answers['enable_throttling'],
+                'instruction': 'Duration in NNhNNmNNs format',
+                'default': '1d',
+                'validate': lambda duration: DURATION_RE.match(duration) is not None
             },
             {
                 'type': 'confirm',

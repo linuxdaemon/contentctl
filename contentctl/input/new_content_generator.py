@@ -47,7 +47,16 @@ class NewContentGenerator():
             self.output_dto.obj['how_to_implement'] = 'UPDATE_HOW_TO_IMPLEMENT'
             self.output_dto.obj['known_false_positives'] = 'UPDATE_KNOWN_FALSE_POSITIVES'            
             self.output_dto.obj['references'] = ['REFERENCE']
-            self.output_dto.obj['throttling'] = DetectionSuppression().dict()
+            if answers['enable_throttling']:
+                throttling_config = DetectionSuppression(
+                    enabled=True,
+                    fields=answers['throttling_fields'],
+                    window=answers['throttling_window']
+                )
+            else:
+                throttling_config = DetectionSuppression()
+
+            self.output_dto.obj['throttling'] = throttling_config.dict()
             self.output_dto.obj['data_source'] = ['UPDATE']
             self.output_dto.obj['tags'] = dict()
             self.output_dto.obj['tags']['analytic_story'] = ['UPDATE_STORY_NAME']
