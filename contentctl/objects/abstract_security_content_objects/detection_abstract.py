@@ -28,7 +28,7 @@ from contentctl.objects.enums import SecurityContentType
 
 class Detection_Abstract(SecurityContentObject):
     contentType: SecurityContentType = SecurityContentType.detections
-    type: str
+    type: AnalyticsType
     status: DetectionStatus
     data_source: list[str]
     search: Union[str, dict]
@@ -65,11 +65,11 @@ class Detection_Abstract(SecurityContentObject):
     class Config:
         use_enum_values = True
 
-    @validator("type")
-    def type_valid(cls, v, values):
-        if v.lower() not in [el.name.lower() for el in AnalyticsType]:
-            raise ValueError("not valid analytics type: " + values["name"])
-        return v
+    # @validator("type")
+    # def type_valid(cls, v, values):
+    #     if v.lower() not in [el.name.lower() for el in AnalyticsType]:
+    #         raise ValueError("not valid analytics type: " + values["name"])
+    #     return v
 
     @validator("how_to_implement")
     def encode_error(cls, v, values, field):

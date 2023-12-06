@@ -1,6 +1,6 @@
 from configparser import RawConfigParser
 import pathlib
-from contentctl.objects.config import Config, ConfigNotable
+from contentctl.objects.config import Config, ConfigDetectionConfiguration, ConfigNotable
 from contentctl.objects.deployment import Deployment
 from contentctl.objects.deployment_scheduling import DeploymentScheduling
 from contentctl.objects.detection import Detection
@@ -27,7 +27,7 @@ bar"""
             how_to_implement="",
             known_false_positives="",
             references=[],
-            deployment=Deployment(
+            deployment=ConfigDetectionConfiguration(
                 scheduling=DeploymentScheduling(
                     cron_schedule="0 * * * * *",
                     earliest_time="-70m@m",

@@ -7,7 +7,7 @@ from contentctl.objects.config import Config, ConfigDrilldown
 from contentctl.objects.detection_suppression import DetectionSuppression
 from contentctl.objects.config import Config
 
-from contentctl.objects.enums import DetectionStatus, SecurityContentType
+from contentctl.objects.enums import AnalyticsType, DetectionStatus, SecurityContentType
 from contentctl.input.new_content_questions import NewContentQuestions
 
 

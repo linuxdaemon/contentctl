@@ -9,7 +9,7 @@ from contentctl.objects.enums import AnalyticsType, DetectionStatus
 def test_add_deployment():
     detection = Detection(
         name="test detection",
-        type=AnalyticsType.correlation.name,
+        type=AnalyticsType.correlation,
         status=DetectionStatus.experimental,
         data_source=[],
         search="",
@@ -54,7 +54,7 @@ def test_add_deployment():
 def test_add_nes_fields():
     detection = Detection(
         name="test detection",
-        type=AnalyticsType.correlation.name,
+        type=AnalyticsType.correlation,
         status="experimental",
         data_source=[],
         search="",

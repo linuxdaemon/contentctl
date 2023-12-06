@@ -2,10 +2,10 @@ import enum
 
 
 class AnalyticsType(enum.Enum):
-    TTP = 1
-    anomaly = 2
-    hunting = 3
-    correlation = 4
+    TTP = "TTP"
+    anomaly = "Anomaly"
+    hunting = "Hunting"
+    correlation = "Correlation"
 
 
 class NotableSeverity(enum.Enum):

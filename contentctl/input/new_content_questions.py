@@ -1,6 +1,6 @@
 
 
-from contentctl.objects.enums import DetectionStatus, NotableSeverity
+from contentctl.objects.enums import AnalyticsType, DetectionStatus, DetectionTestingMode, NotableSeverity
 
 
 class NewContentQuestions():
@@ -24,14 +24,10 @@ class NewContentQuestions():
                 'message': 'select a detection type',
                 'name': 'detection_type',
                 'choices': [
-                    'TTP',
-                    'Anomaly',
-                    'Hunting',
-                    'Baseline',
-                    'Investigation',
-                    'Correlation'
+                    a_type.value
+                    for a_type in AnalyticsType
                 ],
-                'default': 'TTP'
+                'default': AnalyticsType.TTP.value
             },
             {
                 'type': 'select',
