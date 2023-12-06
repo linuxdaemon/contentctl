@@ -1,9 +1,30 @@
 
 
+import os
+import string
 from questionary import Validator
 import validators
 from contentctl.helper.utils import DURATION_RE
 from contentctl.objects.enums import AnalyticsType, DetectionStatus, DetectionTestingMode, NotableSeverity
+
+def _check_int(min_value=None, max_value=None):
+    def _check(v):
+        if isinstance(v, str):
+            if not v or not v.isdigit():
+                return False
+            v = int(v)
+        
+        if min_value is not None:
+            if v <= min_value:
+                return False
+        
+        if max_value is not None:
+            if v > max_value:
+                return False
+            
+        return True
+    
+    return _check
 
 class NewContentQuestions():
 
@@ -20,6 +41,7 @@ class NewContentQuestions():
                 'type': 'text',
                 'message': 'enter author name',
                 'name': 'detection_author',
+                'default': os.getenv('USER')
             },
             {
                 'type': 'select',
@@ -150,6 +172,22 @@ class NewContentQuestions():
                 'name': 'severity',
                 'choices': [item.value for item in NotableSeverity],
                 'default': NotableSeverity.Medium.value,
+            },
+            {
+                'type': 'text',
+                'message': 'confidence',
+                'name': 'confidence',
+                'default': '50',
+                'filter': int,
+                'validate': _check_int(0, 100)
+            },
+            {
+                'type': 'text',
+                'message': 'impact',
+                'name': 'impact',
+                'default': '50',
+                'filter': int,
+                'validate': _check_int(0, 100)
             },
             {
                 'type': 'text',
