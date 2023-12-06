@@ -1,11 +1,9 @@
 
 
-import re
 from questionary import Validator
 import validators
+from contentctl.helper.utils import DURATION_RE
 from contentctl.objects.enums import AnalyticsType, DetectionStatus, DetectionTestingMode, NotableSeverity
-
-DURATION_RE = re.compile(r'^(\d+[dhms])+$')
 
 class NewContentQuestions():
 

@@ -14,7 +14,7 @@ class DetectionTags(ContentBase):
     asset_type: str
     automated_detection_testing: str = None
     cis20: list = None
-    confidence: str
+    confidence: int
     impact: int
     severity: NotableSeverity = NotableSeverity.Medium
     kill_chain_phases: list = None
@@ -30,7 +30,6 @@ class DetectionTags(ContentBase):
     cve: list = None
     supported_tas: list = None
     atomic_guid: list = None
-    drilldown_search: str = None
     manual_test: str = None
     next_steps: str = None
 

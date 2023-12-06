@@ -1,4 +1,5 @@
 import os
+import re
 import git
 import shutil
 import requests
@@ -15,6 +16,7 @@ from math import ceil
 
 TOTAL_BYTES = 0
 ALWAYS_PULL = True
+DURATION_RE = re.compile(r'^(\d+[dhms])+$')
 
 
 class Utils:

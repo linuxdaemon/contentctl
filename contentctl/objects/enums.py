@@ -131,4 +131,3 @@ class InstanceState(str, enum.Enum):
     error = "error"
     stopping = "stopping"
     stopped = "stopped"
-
