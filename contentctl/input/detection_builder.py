@@ -15,6 +15,7 @@ from contentctl.objects.mitre_attack_enrichment import MitreAttackEnrichment
 from contentctl.enrichments.cve_enrichment import CveEnrichment
 from contentctl.enrichments.splunk_app_enrichment import SplunkAppEnrichment
 from contentctl.objects.config import ConfigDetectionConfiguration
+from contentctl.output.new_content_yml_output import NewContentYmlOutput
 
 
 class DetectionBuilder():
@@ -218,7 +219,8 @@ class DetectionBuilder():
                     if macro_name == macro.name:
                         self.security_content_obj.macros.append(macro)
 
-            name = self.security_content_obj.name.replace(' ', '_').replace('-', '_').replace('.', '_').replace('/', '_').lower() + '_filter'
+            clean_name = NewContentYmlOutput.sanitize_name(self.security_content_obj.name)
+            name = clean_name + '_filter'
             macro = Macro(name=name, definition='search *', description='Update this macro to limit the output results to filter out false positives.')
             
             self.security_content_obj.macros.append(macro)

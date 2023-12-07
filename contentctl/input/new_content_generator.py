@@ -9,6 +9,7 @@ from contentctl.objects.config import Config
 
 from contentctl.objects.enums import AnalyticsType, DetectionStatus, SecurityContentType
 from contentctl.input.new_content_questions import NewContentQuestions
+from contentctl.output.new_content_yml_output import NewContentYmlOutput
 
 
 @dataclass(frozen=True)
@@ -41,8 +42,9 @@ class NewContentGenerator():
             self.output_dto.obj['author'] = answers['detection_author']
             self.output_dto.obj['type'] = answers['detection_type']
             self.output_dto.obj['datamodel'] = answers['datamodels']
-            self.output_dto.obj['description'] = 'UPDATE_DESCRIPTION'   
-            file_name = self.output_dto.obj['name'].replace(' ', '_').replace('-','_').replace('.','_').replace('/','_').lower()
+            self.output_dto.obj['description'] = answers['description']   
+            
+            file_name = NewContentYmlOutput.sanitize_name(self.output_dto.obj['name'])
             self.output_dto.obj['search'] = answers['detection_search'] + ' | `' + file_name + '_filter`'
             self.output_dto.obj['how_to_implement'] = 'UPDATE_HOW_TO_IMPLEMENT'
             self.output_dto.obj['known_false_positives'] = 'UPDATE_KNOWN_FALSE_POSITIVES'            

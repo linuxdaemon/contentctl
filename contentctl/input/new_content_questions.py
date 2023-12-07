@@ -43,6 +43,13 @@ class NewContentQuestions:
             },
             {
                 "type": "text",
+                "message": "enter detection description",
+                "name": "description",
+                "multiline": True,
+                "validate": lambda desc: len(desc.strip()) > 0,
+            },
+            {
+                "type": "text",
                 "message": "enter author name",
                 "name": "detection_author",
                 "default": os.getenv("USER"),

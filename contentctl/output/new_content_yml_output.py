@@ -1,6 +1,5 @@
 import os
-from contentctl.input.detection_builder import DetectionBuilder
-from contentctl.objects.detection import Detection
+import re
 
 from contentctl.objects.enums import SecurityContentType
 from contentctl.objects.macro import Macro
@@ -12,7 +11,6 @@ class NewContentYmlOutput():
     
     def __init__(self, output_path:str):
         self.output_path = output_path
-    
     
     def writeObjectNewContent(self, object: dict, type: SecurityContentType) -> None:
         if type == SecurityContentType.detections:
@@ -57,19 +55,14 @@ class NewContentYmlOutput():
         else:
             raise(Exception(f"Object Must be Story or Detection, but is not: {object}"))
 
-
-    def sanitize_name(self, name: str, product: list) -> str:
-        if 'Splunk Behavioral Analytics' in product:
+    @staticmethod
+    def sanitize_name(name: str, product: list = None) -> str:
+        if 'Splunk Behavioral Analytics' in (product or []):
             prefix = 'ssa___'
         else:
             prefix = ''
 
-        return prefix + name \
-            .replace(' ', '_') \
-            .replace('-','_') \
-            .replace('.','_') \
-            .replace('/','_') \
-            .lower()
+        return prefix + re.sub(r'[^A-Za-z0-9]+', '_', name).lower()
 
     def convertNameToFileName(self, name: str, product: list):
         file_name = self.sanitize_name(name, product)
