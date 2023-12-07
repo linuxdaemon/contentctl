@@ -41,7 +41,7 @@ class Detection_Abstract(SecurityContentObject):
     tests: list[UnitTest] = []
 
     # enrichments
-    datamodel: list = None
+    datamodel: list[DataModel] = None
     deprecated: bool = None
     experimental: bool = None
     deployment: ConfigDetectionConfiguration = None
@@ -125,13 +125,6 @@ class Detection_Abstract(SecurityContentObject):
         if DetectionStatus(values.get("status", "")) == DetectionStatus.deprecated:
             return True
         return False
-
-    @validator("datamodel")
-    def datamodel_valid(cls, v, values):
-        for datamodel in v:
-            if datamodel not in [el.name for el in DataModel]:
-                raise ValueError("not valid data model: " + values["name"])
-        return v
 
     def all_tests_successful(self) -> bool:
         if (
