@@ -3,8 +3,11 @@ import os
 from contentctl.helper.utils import DURATION_RE
 from contentctl.objects.enums import (
     AnalyticsType,
+    DataModel,
     DetectionStatus,
+    KillChainPhases,
     NotableSeverity,
+    SecurityDomains,
 )
 
 
@@ -63,19 +66,10 @@ class NewContentQuestions:
                 "message": "select the datamodels used in the detection",
                 "name": "datamodels",
                 "choices": [
-                    "Endpoint",
-                    "Authentication",
-                    "Change",
-                    "Email",
-                    "Network_Resolution",
-                    "Network_Traffic",
-                    "Network_Sessions",
-                    "Updates",
-                    "Vulnerabilities",
-                    "Web",
-                    "Risk",
+                    model.value
+                    for model in DataModel
                 ],
-                "default": "Endpoint",
+                "default": DataModel.Endpoint.value,
             },
             {
                 "type": "text",
@@ -138,30 +132,20 @@ class NewContentQuestions:
                 "message": "select kill chain phases related to the detection",
                 "name": "kill_chain_phases",
                 "choices": [
-                    "Reconnaissance",
-                    "Weaponization",
-                    "Delivery",
-                    "Exploitation",
-                    "Installation",
-                    "Command & Control",
-                    "Actions on Objectives",
-                    "Denial of Service",
+                    phase.value
+                    for phase in KillChainPhases
                 ],
-                "default": "Exploitation",
+                "default": KillChainPhases.Exploitation.value,
             },
             {
                 "type": "select",
                 "message": "security_domain for detection",
                 "name": "security_domain",
                 "choices": [
-                    "access",
-                    "endpoint",
-                    "network",
-                    "threat",
-                    "identity",
-                    "audit",
+                    domain.value
+                    for domain in SecurityDomains
                 ],
-                "default": "endpoint",
+                "default": SecurityDomains.endpoint.value,
             },
             {
                 "type": "select",

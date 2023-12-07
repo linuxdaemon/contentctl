@@ -17,23 +17,23 @@ class NotableSeverity(enum.Enum):
 
 
 class DataModel(enum.Enum):
-    Endpoint = 1
-    Network_Traffic = 2
-    Authentication = 3
-    Change = 4
-    Change_Analysis = 5
-    Email = 6
-    Network_Resolution = 7
-    Network_Sessions = 8
-    UEBA = 9
-    Updates = 10
-    Vulnerabilities = 11
-    Web = 12
-    Endpoint_Processes = 13
-    Endpoint_Filesystem = 14
-    Endpoint_Registry = 15
-    Risk = 16
-    Splunk_Audit = 17
+    Endpoint = "Endpoint"
+    Network_Traffic = "Network_Traffic"
+    Authentication = "Authentication"
+    Change = "Change"
+    Change_Analysis = "Change_Analysis"
+    Email = "Email"
+    Network_Resolution = "Network_Resolution"
+    Network_Sessions = "Network_Sessions"
+    UEBA = "UEBA"
+    Updates = "Updates"
+    Vulnerabilities = "Vulnerabilities"
+    Web = "Web"
+    Endpoint_Processes = "Endpoint_Processes"
+    Endpoint_Filesystem = "Endpoint_Filesystem"
+    Endpoint_Registry = "Endpoint_Registry"
+    Risk = "Risk"
+    Splunk_Audit = "Splunk_Audit"
 
 
 class SecurityContentType(enum.Enum):
@@ -46,6 +46,24 @@ class SecurityContentType(enum.Enum):
     deployments = 7
     investigations = 8
     unit_tests = 9
+
+class KillChainPhases(enum.Enum):
+    Unknown = "Unknown"
+    Reconnaissance = "Reconnaissance"
+    Weaponization = "Weaponization"
+    Delivery = "Delivery"
+    Exploitation = "Exploitation"
+    Installation = "Installation"
+    Command_And_Control = "Command And Control"
+    Actions_on_Objectives = "Actions on Objectives"
+
+class SecurityDomains(enum.Enum):
+    access = "access"
+    endpoint = "endpoint"
+    network = "network"
+    threat = "threat"
+    identity = "identity"
+    audit = "audit"
 
 # Bringing these changes back in line will take some time after
 # the initial merge is complete

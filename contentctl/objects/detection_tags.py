@@ -2,7 +2,7 @@ import re
 
 from pydantic import validator, root_validator
 from contentctl.objects.content_base import ContentBase
-from contentctl.objects.enums import NotableSeverity
+from contentctl.objects.enums import KillChainPhases, NotableSeverity, SecurityDomains
 from contentctl.objects.mitre_attack_enrichment import MitreAttackEnrichment
 from contentctl.objects.constants import *
 
@@ -17,15 +17,15 @@ class DetectionTags(ContentBase):
     confidence: int
     impact: int
     severity: NotableSeverity = NotableSeverity.Medium
-    kill_chain_phases: list = None
+    kill_chain_phases: list[KillChainPhases] = None
     message: str
-    mitre_attack_id: list = None
+    mitre_attack_id: list[str] = None
     nist: list = None
     observable: list
     product: list
     required_fields: list
     risk_score: int
-    security_domain: str
+    security_domain: SecurityDomains
     risk_severity: str = None
     cve: list = None
     supported_tas: list = None
@@ -106,19 +106,6 @@ class DetectionTags(ContentBase):
             raise ValueError("impact score is out of range 1-100: " + values["name"])
         else:
             return v
-
-    @validator("kill_chain_phases")
-    def tags_kill_chain_phases(cls, v, values):
-        valid_kill_chain_phases = SES_KILL_CHAIN_MAPPINGS.keys()
-        for value in v:
-            if value not in valid_kill_chain_phases:
-                raise ValueError(
-                    "kill chain phase not valid for "
-                    + values["name"]
-                    + ". valid options are "
-                    + str(valid_kill_chain_phases)
-                )
-        return v
 
     @validator("mitre_attack_id")
     def tags_mitre_attack_id(cls, v, values):
