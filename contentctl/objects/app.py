@@ -11,11 +11,11 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Union
 import validators
+from contentctl.input.yml_reader import YmlReader
 from contentctl.objects.content_base import ContentBase
 from contentctl.objects.security_content_object import SecurityContentObject
 from contentctl.objects.enums import DataModel
 from contentctl.helper.utils import Utils
-import yaml
 
 SPLUNKBASE_URL = "https://splunkbase.splunk.com/app/{uid}/release/{release}/download"
 ENVIRONMENT_PATH_NOT_SET = "ENVIRONMENT_PATH_NOT_SET"
@@ -207,12 +207,13 @@ class App(ContentBase):
     @staticmethod
     def get_default_apps() -> list[App]:
         all_app_objs: list[App] = []
-        with open(
+        all_apps_raw = YmlReader.load_file(
             os.path.join(os.path.dirname(__file__), "../", "templates/app_default.yml"),
-            "r",
-        ) as app_data:
-            all_apps_raw = yaml.safe_load(app_data)
-            for a in all_apps_raw:
-                app_obj = App.parse_obj(a)
-                all_app_objs.append(app_obj)
+            add_fields=False,
+        )
+
+        for a in all_apps_raw:
+            app_obj = App.parse_obj(a)
+            all_app_objs.append(app_obj)
+        
         return all_app_objs

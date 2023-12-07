@@ -10,7 +10,8 @@ from contentctl.actions.detection_testing.views.DetectionTestingView import (
     DetectionTestingView,
 )
 import pathlib
-import yaml
+
+from contentctl.output.yml_writer import YmlWriter
 
 OUTPUT_FOLDER = "test_results"
 OUTPUT_FILENAME = "summary.yml"
@@ -38,9 +39,7 @@ class DetectionTestingViewFile(DetectionTestingView):
 
         result_dict = self.getSummaryObject()
 
-        # use the yaml writer class
-        with open(output_file, "w") as res:
-            res.write(yaml.safe_dump(result_dict))
+        YmlWriter.writeYmlFile(output_file, result_dict)
 
     def showStatus(self, interval: int = 60):
         pass

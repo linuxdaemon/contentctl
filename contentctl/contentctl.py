@@ -2,7 +2,6 @@ import sys
 import argparse
 import os
 
-import yaml
 import pathlib
 from contentctl.actions.detection_testing.GitHubService import (
     GithubService,

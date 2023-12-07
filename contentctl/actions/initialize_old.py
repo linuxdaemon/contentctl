@@ -3,7 +3,6 @@ Initializes a Splunk Content Project
 '''
 
 from pathlib import Path
-import yaml
 import sys
 import questionary
 import os
@@ -13,6 +12,7 @@ import abc
 from pydantic import BaseModel, Field
 
 from contentctl.objects.config import Config
+from contentctl.output.yml_writer import YmlWriter
 
 DEFAULT_FOLDERS = ['detections', 'stories', 'lookups', 'macros', 'baselines', 'dist']
 
@@ -62,8 +62,7 @@ def NewContentPack(args, default_config):
     if args.skip_configuration:
         print("initializing with default configuration: {0}".format(config_path))
         # write config file
-        with open(config_path, 'w') as outfile:
-            yaml.dump(default_config, outfile, default_flow_style=False, sort_keys=False)
+        YmlWriter.writeYmlFile(config_path, default_config)
 
         # write folder structure
         create_folders(args.output)
@@ -215,8 +214,7 @@ def NewContentPack(args, default_config):
         
    
     # write config file
-    with open(config_path, 'w') as outfile:
-        yaml.dump(custom_config, outfile, default_flow_style=False, sort_keys=False)
+    YmlWriter.writeYmlFile(config_path, custom_config)
     print('Content pack configuration created under: {0} .. edit to fine tune details before building'.format(config_path))
 
     # write folder structure

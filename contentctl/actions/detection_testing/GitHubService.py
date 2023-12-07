@@ -9,7 +9,6 @@ from typing import Union, Tuple
 from docker import types
 import datetime
 import git
-import yaml
 from git.objects import base
 
 from contentctl.objects.detection import Detection

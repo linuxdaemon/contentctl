@@ -4,13 +4,13 @@ from __future__ import annotations
 
 import validators
 import pathlib
-import yaml
 import os
 from pydantic import BaseModel, validator, root_validator, Extra, Field
 from dataclasses import dataclass
 from typing import Union
 import docker
 import docker.errors
+from contentctl.input.yml_reader import YmlReader
 from contentctl.objects.content_base import ContentBase
 
 
@@ -33,10 +33,8 @@ CONTAINER_APP_DIR = pathlib.Path("/tmp/apps")
 
 def getTestConfigFromYMLFile(path: pathlib.Path):
     try:
-        with open(path, "r") as config_handle:
-            cfg = yaml.safe_load(config_handle)
+        cfg = YmlReader.load_file(path, add_fields=False)
         return TestConfig.parse_obj(cfg)
-
     except Exception as e:
         print(f"Error loading test configuration file '{path}': {str(e)}")
 
