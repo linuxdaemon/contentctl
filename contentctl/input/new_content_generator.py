@@ -59,20 +59,14 @@ class NewContentGenerator():
                 throttling_config = DetectionSuppression()
 
             self.output_dto.obj['throttling'] = throttling_config.dict()
-            self.output_dto.obj['data_source'] = ['UPDATE']
             self.output_dto.obj['tags'] = dict()
-            self.output_dto.obj['tags']['analytic_story'] = ['UPDATE_STORY_NAME']
-            self.output_dto.obj['tags']['asset_type'] = 'UPDATE asset_type'
-            self.output_dto.obj['tags']['cis20'] = ['CIS 3', 'CIS 5', 'CIS 16']
             self.output_dto.obj['tags']['confidence'] = confidence = answers['confidence']
-            self.output_dto.obj['tags']['context'] = ['Update context']
-            self.output_dto.obj['tags']['dataset'] = ['UPDATE_DATASET_URL']
             self.output_dto.obj['tags']['impact'] = impact = answers['impact']
             self.output_dto.obj['tags']['kill_chain_phases'] = answers['kill_chain_phases']
-            self.output_dto.obj['tags']['message'] = 'UPDATE message'
             self.output_dto.obj['tags']['mitre_attack_id'] = [x.strip() for x in answers['mitre_attack_ids'].split(',')]
-            self.output_dto.obj['tags']['nist'] = ['DE.CM']
-            self.output_dto.obj['tags']['observable'] = [{'name': 'UPDATE', 'type': 'UPDATE', 'role': ['UPDATE']}]
+            if answers['add_observable']:
+                self.output_dto.obj['tags']['observable'] = [{'name': 'UPDATE', 'type': 'UPDATE', 'role': ['UPDATE']}]
+
             self.output_dto.obj['tags']['product'] = ['Splunk Enterprise','Splunk Enterprise Security','Splunk Cloud']
             self.output_dto.obj['tags']['required_fields'] = ['UPDATE']
             self.output_dto.obj['tags']['risk_score'] = int(round((impact * confidence)/100))

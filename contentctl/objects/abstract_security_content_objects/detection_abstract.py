@@ -24,13 +24,18 @@ from contentctl.objects.baseline import Baseline
 from contentctl.objects.playbook import Playbook
 from contentctl.helper.link_validator import LinkValidator
 from contentctl.objects.enums import SecurityContentType
+from contentctl.output.new_content_yml_output import NewContentYmlOutput
 
 
 class Detection_Abstract(SecurityContentObject):
+    # internal fields
+    file_path: str = None
     contentType: SecurityContentType = SecurityContentType.detections
+    
+    # Standard fields
     type: AnalyticsType
     status: DetectionStatus
-    data_source: list[str]
+    data_source: list[str] = None
     search: Union[str, dict]
     how_to_implement: str
     known_false_positives: str
@@ -54,7 +59,6 @@ class Detection_Abstract(SecurityContentObject):
     lookups: list[Lookup] = None
     cve_enrichment: list = None
     splunk_app_enrichment: list = None
-    file_path: str = None
     source: str = None
     nes_fields: str = None
     providing_technologies: list = None
@@ -103,7 +107,7 @@ class Detection_Abstract(SecurityContentObject):
             # Not prod, we don't care
             return v
 
-        if values["tags"].manual_test:
+        if 'tags' in values and values["tags"].manual_test:
             # Testing is manual, this is fine
             return v
 

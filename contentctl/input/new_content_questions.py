@@ -178,6 +178,12 @@ class NewContentQuestions:
                 "validate": _check_int(0, 100),
             },
             {
+                "type": "confirm",
+                "name": "add_observable",
+                "message": "Add observable example?",
+                "default": False,
+            },
+            {
                 "type": "text",
                 "message": "Next steps",
                 "name": "next_steps",

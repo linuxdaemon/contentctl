@@ -1,4 +1,3 @@
-
 ATTACK_TACTICS_KILLCHAIN_MAPPING = {
     "Reconnaissance": "Reconnaissance",
     "Resource Development": "Weaponization",
@@ -8,13 +7,13 @@ ATTACK_TACTICS_KILLCHAIN_MAPPING = {
     "Privilege Escalation": "Exploitation",
     "Defense Evasion": "Exploitation",
     "Credential Access": "Exploitation",
-    "Discovery": "Exploitation", 
+    "Discovery": "Exploitation",
     "Lateral Movement": "Exploitation",
     "Collection": "Exploitation",
     "Command And Control": "Command And Control",
     "Command And Control": "Command And Control",
     "Exfiltration": "Actions on Objectives",
-    "Impact": "Actions on Objectives"
+    "Impact": "Actions on Objectives",
 }
 
 SES_CONTEXT_MAPPING = {
@@ -64,7 +63,7 @@ SES_CONTEXT_MAPPING = {
     "Other:Policy Violation": 82,
     "Other:Threat Intelligence": 83,
     "Other:Flight Risk": 84,
-    "Other:Removable Storage": 85
+    "Other:Removable Storage": 85,
 }
 
 SES_KILL_CHAIN_MAPPINGS = {
@@ -75,7 +74,7 @@ SES_KILL_CHAIN_MAPPINGS = {
     "Exploitation": 4,
     "Installation": 5,
     "Command And Control": 6,
-    "Actions on Objectives": 7
+    "Actions on Objectives": 7,
 }
 
 SES_OBSERVABLE_ROLE_MAPPING = {
@@ -89,7 +88,7 @@ SES_OBSERVABLE_ROLE_MAPPING = {
     "Child Process": 6,
     "Known Bad": 7,
     "Data Loss": 8,
-    "Observer": 9
+    "Observer": 9,
 }
 
 SES_OBSERVABLE_TYPE_MAPPING = {
@@ -114,7 +113,7 @@ SES_OBSERVABLE_TYPE_MAPPING = {
     "Container": 27,
     "Registry Key": 28,
     "Registry Value": 29,
-    "Other": 99
+    "Other": 99,
 }
 
 SES_ATTACK_TACTICS_ID_MAPPING = {
@@ -131,5 +130,5 @@ SES_ATTACK_TACTICS_ID_MAPPING = {
     "Collection": "TA0009",
     "Command_and_Control": "TA0011",
     "Exfiltration": "TA0010",
-    "Impact": "TA0040"
+    "Impact": "TA0040",
 }

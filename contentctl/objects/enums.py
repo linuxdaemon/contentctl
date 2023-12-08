@@ -47,6 +47,7 @@ class SecurityContentType(enum.Enum):
     investigations = 8
     unit_tests = 9
 
+
 class KillChainPhases(enum.Enum):
     Unknown = "Unknown"
     Reconnaissance = "Reconnaissance"
@@ -57,6 +58,7 @@ class KillChainPhases(enum.Enum):
     Command_And_Control = "Command And Control"
     Actions_on_Objectives = "Actions on Objectives"
 
+
 class SecurityDomains(enum.Enum):
     access = "access"
     endpoint = "endpoint"
@@ -64,6 +66,7 @@ class SecurityDomains(enum.Enum):
     threat = "threat"
     identity = "identity"
     audit = "audit"
+
 
 # Bringing these changes back in line will take some time after
 # the initial merge is complete
@@ -79,16 +82,19 @@ class SecurityContentProduct(enum.Enum):
     API = 3
     CUSTOM = 4
 
+
 class SigmaConverterTarget(enum.Enum):
     CIM = 1
     RAW = 2
     OCSF = 3
     ALL = 4
 
+
 class DetectionStatus(enum.Enum):
     production = "production"
     deprecated = "deprecated"
     experimental = "experimental"
+
 
 class LogLevel(enum.Enum):
     NONE = "NONE"
@@ -101,7 +107,8 @@ class AlertActions(enum.Enum):
     rba = "rba"
     email = "email"
 
-class StoryCategory(str,enum.Enum):
+
+class StoryCategory(str, enum.Enum):
     ABUSE = "Abuse"
     ADVERSARY_TACTICS = "Adversary Tactics"
     BEST_PRACTICES = "Best Practices"
@@ -110,7 +117,6 @@ class StoryCategory(str,enum.Enum):
     MALWARE = "Malware"
     UNCATEGORIZED = "Uncategorized"
     VULNERABILITY = "Vulnerability"
-    
 
     # The following categories are currently used in
     # security_content stories but do not appear
@@ -120,11 +126,10 @@ class StoryCategory(str,enum.Enum):
     ACCOUNT_COMPROMSE = "Account Compromise"
     DATA_DESTRUCTION = "Data Destruction"
     LATERAL_MOVEMENT = "Lateral Movement"
-    PRIVILEGE_ESCALATION  = "Privilege Escalation"
+    PRIVILEGE_ESCALATION = "Privilege Escalation"
     RANSOMWARE = "Ransomware"
     UNAUTHORIZED_SOFTWARE = "Unauthorized Software"
-  
-  
+
 
 class PostTestBehavior(str, enum.Enum):
     always_pause = "always_pause"
@@ -149,3 +154,42 @@ class InstanceState(str, enum.Enum):
     error = "error"
     stopping = "stopping"
     stopped = "stopped"
+
+
+class ObservableRole(enum.Enum):
+    Other = "Other"
+    Unknown = "Unknown"
+    Actor = "Actor"
+    Target = "Target"
+    Attacker = "Attacker"
+    Victim = "Victim"
+    Parent_Process = "Parent Process"
+    Child_Process = "Child Process"
+    Known_Bad = "Known Bad"
+    Data_Loss = "Data Loss"
+    Observer = "Observer"
+
+
+class ObservableType(enum.Enum):
+    Unknown = "Unknown"
+    Hostname = "Hostname"
+    IP_Address = "IP Address"
+    MAC_Address = "MAC Address"
+    User_Name = "User Name"
+    Email_Address = "Email Address"
+    URL_String = "URL String"
+    File_Name = "File Name"
+    File_Hash = "File Hash"
+    Process_Name = "Process Name"
+    Resource_UID = "Resource UID"
+    Endpoint = "Endpoint"
+    User = "User"
+    Email = "Email"
+    Uniform_Resource_Locator = "Uniform Resource Locator"
+    File = "File"
+    Process = "Process"
+    Geo_Location = "Geo Location"
+    Container = "Container"
+    Registry_Key = "Registry Key"
+    Registry_Value = "Registry Value"
+    Other = "Other"

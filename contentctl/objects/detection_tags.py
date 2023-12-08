@@ -5,23 +5,24 @@ from contentctl.objects.content_base import ContentBase
 from contentctl.objects.enums import KillChainPhases, NotableSeverity, SecurityDomains
 from contentctl.objects.mitre_attack_enrichment import MitreAttackEnrichment
 from contentctl.objects.constants import *
+from contentctl.objects.observable import Observable
 
 
 class DetectionTags(ContentBase):
     # detection spec
     name: str
-    analytic_story: list
-    asset_type: str
+    analytic_story: list = None
+    asset_type: str = None
     automated_detection_testing: str = None
     cis20: list = None
     confidence: int
     impact: int
     severity: NotableSeverity = NotableSeverity.Medium
     kill_chain_phases: list[KillChainPhases] = None
-    message: str
+    message: str = None
     mitre_attack_id: list[str] = None
     nist: list = None
-    observable: list
+    observable: list[Observable] = None
     product: list
     required_fields: list
     risk_score: int
@@ -147,36 +148,3 @@ class DetectionTags(ContentBase):
                 f"\n  Expected risk_score={calculated_risk_score}, found risk_score={int(v)}: {values['name']}"
             )
         return v
-
-    @root_validator
-    def tags_observable(cls, values):
-        valid_roles = SES_OBSERVABLE_ROLE_MAPPING.keys()
-        valid_types = SES_OBSERVABLE_TYPE_MAPPING.keys()
-
-        for value in values["observable"]:
-            if value["type"] in valid_types:
-                if "Splunk Behavioral Analytics" in values["product"]:
-                    continue
-
-                if "role" not in value:
-                    raise ValueError("Observable role is missing for " + values["name"])
-                for role in value["role"]:
-                    if role not in valid_roles:
-                        raise ValueError(
-                            "Observable role "
-                            + role
-                            + " not valid for "
-                            + values["name"]
-                            + ". valid options are "
-                            + str(valid_roles)
-                        )
-            else:
-                raise ValueError(
-                    "Observable type "
-                    + value["type"]
-                    + " not valid for "
-                    + values["name"]
-                    + ". valid options are "
-                    + str(valid_types)
-                )
-        return values
