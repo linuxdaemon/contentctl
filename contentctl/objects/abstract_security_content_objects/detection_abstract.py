@@ -1,3 +1,4 @@
+from pathlib import Path
 import uuid
 import string
 import requests
@@ -98,6 +99,11 @@ class Detection_Abstract(SecurityContentObject):
     @validator("search")
     def search_validate(cls, v, values):
         # write search validator
+        if file := values.get('file_path'):
+            macro = Path(file).name.rsplit('.', 1)[0] + '_filter'
+            if not v.strip().endswith(f'| `{macro}`'):
+                raise ValueError(f"Missing filter macro: expected {macro}")
+
         return v
 
     @validator("tests", always=True)
